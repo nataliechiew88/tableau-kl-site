@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Occasions — Tableau Floral Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --void: #100c06;
+  --deep-plum: #2a1a1b;
+  --plum: #3A2C39;
+  --mauve: #5d4755;
+  --dusty: #826a80;
+  --lilac: #C8BEDD;
+  --pale-lilac: #F2D9EE;
+  --cream: #F5EFE8;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Jost', sans-serif;
+  --script: 'Pinyon Script', cursive;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--void); color: var(--cream); font-family: var(--sans); font-weight: 300; font-size: 15px; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity: 0.35; }
+
+/* ── SHARED ── */
+.announcement { background: var(--plum); color: var(--pale-lilac); text-align: center; padding: 11px 24px; font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 300; border-bottom: 1px solid rgba(200,190,221,0.15); }
+header { background: rgba(16,12,6,0.94); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(200,190,221,0.12); position: sticky; top: 0; z-index: 200; }
+.header-inner { max-width: 1400px; margin: 0 auto; padding: 0 56px; height: 76px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+nav.left { display: flex; gap: 40px; }
+nav a, .nav-right a { font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; color: rgba(245,239,232,0.5); font-weight: 300; transition: color 0.3s; }
+nav a:hover, .nav-right a:hover { color: var(--pale-lilac); }
+nav a.active { color: var(--lilac); }
+.logo-text { font-family: var(--serif); font-size: 22px; font-weight: 300; letter-spacing: 0.12em; color: var(--cream); text-decoration: none; display: block; text-align: center; }
+.logo-sub { font-size: 7.5px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--dusty); display: block; text-align: center; margin-top: 2px; }
+.nav-right { display: flex; justify-content: flex-end; gap: 32px; align-items: center; }
+.nav-order { border: 1px solid rgba(200,190,221,0.35) !important; color: var(--lilac) !important; padding: 9px 24px; font-size: 10px !important; letter-spacing: 0.2em !important; transition: all 0.3s !important; }
+.nav-order:hover { background: var(--plum) !important; color: var(--pale-lilac) !important; }
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.95s cubic-bezier(0.22,1,0.36,1), transform 0.95s cubic-bezier(0.22,1,0.36,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-slow { opacity: 0; transform: translateY(20px); transition: opacity 1.2s cubic-bezier(0.22,1,0.36,1) 0.18s, transform 1.2s cubic-bezier(0.22,1,0.36,1) 0.18s; }
+.reveal-slow.visible { opacity: 1; transform: translateY(0); }
+
+/* ── HERO ── */
+.occ-hero {
+  min-height: 88vh;
+  background: linear-gradient(155deg, #0a0608 0%, #180d16 30%, #2a1828 55%, #3a2535 80%, #3A2C39 100%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+.hero-word-stack {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+.hero-word {
+  display: block;
+  font-family: var(--script);
+  color: rgba(200,190,221,0.035);
+  line-height: 0.9;
+  white-space: nowrap;
+}
+.hero-word.w1 { font-size: clamp(100px, 14vw, 220px); }
+.hero-word.w2 { font-size: clamp(80px, 11vw, 180px); margin-left: 80px; }
+.hero-word.w3 { font-size: clamp(90px, 12vw, 200px); margin-left: -40px; }
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 25% 35%, rgba(200,190,221,0.04) 0%, transparent 50%), radial-gradient(circle at 75% 65%, rgba(93,71,85,0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-overlay-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 55%;
+  background: linear-gradient(to top, rgba(16,12,6,0.97) 0%, transparent 100%);
+  pointer-events: none;
+}
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 80px 80px;
+  width: 100%;
+}
+.hero-overline { font-size: 9.5px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--dusty); font-weight: 300; display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+.hero-overline::before { content: ''; width: 28px; height: 1px; background: var(--dusty); }
+.hero-title { font-family: var(--serif); font-size: clamp(52px, 7.5vw, 108px); font-weight: 300; line-height: 0.95; color: var(--cream); letter-spacing: -0.02em; margin-bottom: 48px; }
+.hero-title em { font-style: italic; color: var(--lilac); font-family: var(--script); font-size: 1.08em; display: block; margin-top: 8px; letter-spacing: 0; }
+.hero-occasion-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.occ-pill {
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(245,239,232,0.38);
+  border: 1px solid rgba(200,190,221,0.12);
+  padding: 9px 20px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-decoration: none;
+  font-weight: 300;
+}
+.occ-pill:hover { color: var(--lilac); border-color: rgba(200,190,221,0.35); background: rgba(200,190,221,0.04); }
+.hero-scroll { position: absolute; bottom: 36px; right: 80px; font-size: 8.5px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(245,239,232,0.18); display: flex; align-items: center; gap: 12px; }
+.hero-scroll::after { content: ''; width: 40px; height: 1px; background: rgba(245,239,232,0.12); }
+
+/* ── OCCASION SECTIONS ── */
+.occasion-section {
+  border-bottom: 1px solid rgba(200,190,221,0.07);
+  overflow: hidden;
+}
+
+/* FULL-WIDTH OCCASION HERO PANEL */
+.occ-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 600px;
+}
+.occ-panel.flip { direction: rtl; }
+.occ-panel.flip > * { direction: ltr; }
+
+.occ-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 580px;
+}
+.occ-visual-bg { position: absolute; inset: 0; }
+.occ-visual-overlay { position: absolute; inset: 0; }
+.occ-visual-script {
+  font-family: var(--script);
+  font-size: 100px;
+  color: rgba(200,190,221,0.08);
+  text-align: center;
+  line-height: 1.2;
+  padding: 40px;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+.occ-visual-num {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  font-family: var(--serif);
+  font-size: 80px;
+  font-weight: 300;
+  color: rgba(200,190,221,0.07);
+  line-height: 1;
+  z-index: 1;
+}
+.occ-pill-tag {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  font-size: 8px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--dusty);
+  background: rgba(16,12,6,0.72);
+  padding: 7px 14px;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(200,190,221,0.1);
+  z-index: 3;
+}
+
+.occ-info {
+  padding: 72px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 1px solid rgba(200,190,221,0.07);
+}
+.occ-panel.flip .occ-info { border-left: none; border-right: 1px solid rgba(200,190,221,0.07); }
+.occ-overline { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--dusty); margin-bottom: 16px; display: flex; align-items: center; gap: 14px; font-weight: 300; }
+.occ-overline::before { content: ''; width: 20px; height: 1px; background: var(--dusty); display: block; }
+.occ-name { font-family: var(--serif); font-size: clamp(30px, 3.2vw, 48px); font-weight: 300; color: var(--cream); line-height: 1.05; margin-bottom: 8px; }
+.occ-name em { font-style: italic; color: var(--lilac); }
+.occ-subtitle { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--dusty); font-weight: 300; margin-bottom: 28px; line-height: 1.4; }
+.occ-story { font-size: 13.5px; color: rgba(245,239,232,0.5); line-height: 1.95; font-weight: 300; margin-bottom: 24px; max-width: 480px; }
+.occ-pull { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--pale-lilac); line-height: 1.5; border-left: 2px solid var(--mauve); padding-left: 20px; margin-bottom: 32px; font-weight: 300; opacity: 0.8; }
+
+/* RECOMMENDED ARRANGEMENTS */
+.occ-recs { margin-bottom: 32px; }
+.occ-recs-label { font-size: 8px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--dusty); margin-bottom: 14px; display: block; font-weight: 300; }
+.occ-rec-list { display: flex; flex-direction: column; gap: 1px; }
+.occ-rec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 16px;
+  background: var(--deep-plum);
+  transition: background 0.25s;
+  text-decoration: none;
+  color: inherit;
+  border-left: 2px solid transparent;
+  transition: all 0.25s;
+}
+.occ-rec-row:hover { background: var(--plum); border-left-color: var(--mauve); }
+.occ-rec-name { font-size: 12.5px; color: rgba(245,239,232,0.6); font-weight: 300; }
+.occ-rec-price { font-family: var(--serif); font-size: 16px; color: var(--lilac); font-weight: 300; }
+
+.occ-order-row { display: flex; gap: 16px; align-items: center; }
+.btn-occ-order { background: var(--plum); color: var(--pale-lilac); padding: 14px 32px; font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; font-weight: 300; transition: all 0.3s; border: 1px solid transparent; white-space: nowrap; }
+.btn-occ-order:hover { background: transparent; border-color: rgba(200,190,221,0.35); color: var(--lilac); }
+.btn-occ-ghost { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,239,232,0.3); text-decoration: none; border-bottom: 1px solid rgba(200,190,221,0.15); padding-bottom: 2px; transition: all 0.25s; white-space: nowrap; }
+.btn-occ-ghost:hover { color: var(--lilac); border-color: var(--lilac); }
+
+/* occ visual backgrounds */
+.ov-bday   { background: linear-gradient(145deg, #1e1018 0%, #3A2C39 55%, #5d4755 100%); }
+.ov-anniv  { background: linear-gradient(150deg, #1a0a1a 0%, #3d2040 55%, #7a4880 100%); }
+.ov-corp   { background: linear-gradient(145deg, #0e0e14 0%, #1a1828 50%, #282240 100%); }
+.ov-wed    { background: linear-gradient(150deg, #180f20 0%, #3a2060 50%, #5a3880 100%); }
+.ov-cond   { background: linear-gradient(145deg, #0c0c0e 0%, #181820 50%, #242430 100%); }
+.ov-new    { background: linear-gradient(150deg, #200f1a 0%, #3a1830 50%, #6a3050 100%); }
+.ov-grad   { background: linear-gradient(145deg, #0a0e0e 0%, #141e1e 50%, #203030 100%); }
+
+/* ── VISUAL OVERLAYS ── */
+.ov-bday .occ-visual-overlay   { background: linear-gradient(to right, transparent 40%, rgba(16,12,6,0.5)); }
+.ov-anniv .occ-visual-overlay  { background: linear-gradient(to left, transparent 40%, rgba(16,12,6,0.5)); }
+.ov-corp .occ-visual-overlay   { background: linear-gradient(to right, transparent 40%, rgba(16,12,6,0.5)); }
+.ov-wed .occ-visual-overlay    { background: linear-gradient(to left, transparent 40%, rgba(16,12,6,0.5)); }
+.ov-cond .occ-visual-overlay   { background: linear-gradient(to right, transparent 40%, rgba(16,12,6,0.5)); }
+.ov-new .occ-visual-overlay    { background: linear-gradient(to left, transparent 40%, rgba(16,12,6,0.5)); }
+.ov-grad .occ-visual-overlay   { background: linear-gradient(to right, transparent 40%, rgba(16,12,6,0.5)); }
+
+/* ── MARQUEE ── */
+.marquee-wrap { background: var(--deep-plum); border-top: 1px solid rgba(200,190,221,0.07); border-bottom: 1px solid rgba(200,190,221,0.07); padding: 16px 0; overflow: hidden; white-space: nowrap; }
+.marquee-track { display: inline-block; animation: marquee 28s linear infinite; }
+.marquee-item { display: inline-block; font-family: var(--serif); font-size: 14px; font-style: italic; color: rgba(200,190,221,0.28); margin: 0 40px; font-weight: 300; letter-spacing: 0.04em; }
+.marquee-dot { display: inline-block; width: 3px; height: 3px; border-radius: 50%; background: var(--mauve); margin: 0 4px; vertical-align: middle; opacity: 0.45; }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* ── CORPORATE CALLOUT ── */
+.corp-callout {
+  background: var(--deep-plum);
+  border-top: 1px solid rgba(200,190,221,0.08);
+  border-bottom: 1px solid rgba(200,190,221,0.08);
+  padding: 100px 80px;
+}
+.corp-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+.corp-overline { font-size: 9.5px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--dusty); margin-bottom: 24px; display: flex; align-items: center; gap: 14px; }
+.corp-overline::before { content: ''; width: 24px; height: 1px; background: var(--dusty); display: block; }
+.corp-title { font-family: var(--serif); font-size: clamp(30px, 4vw, 54px); font-weight: 300; color: var(--cream); line-height: 1.08; margin-bottom: 24px; }
+.corp-title em { font-style: italic; color: var(--lilac); display: block; }
+.corp-body { font-size: 14px; color: rgba(245,239,232,0.5); line-height: 1.9; font-weight: 300; margin-bottom: 44px; }
+.btn-corp { background: transparent; color: var(--pale-lilac); padding: 16px 40px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; font-weight: 300; transition: all 0.3s; border: 1px solid rgba(200,190,221,0.35); display: inline-block; }
+.btn-corp:hover { background: rgba(200,190,221,0.07); color: var(--lilac); border-color: rgba(200,190,221,0.55); }
+.corp-tiers { display: flex; flex-direction: column; gap: 1px; }
+.corp-tier { background: rgba(16,12,6,0.5); border: 1px solid rgba(200,190,221,0.07); padding: 24px 28px; display: grid; grid-template-columns: 1fr auto; align-items: center; transition: background 0.25s; }
+.corp-tier:hover { background: var(--plum); }
+.corp-tier-name { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cream); margin-bottom: 4px; font-weight: 300; }
+.corp-tier-desc { font-size: 12px; color: rgba(245,239,232,0.38); font-weight: 300; }
+.corp-tier-price { font-family: var(--serif); font-size: 20px; color: var(--lilac); font-weight: 300; text-align: right; }
+
+/* ── FINAL CTA ── */
+.final-cta {
+  background: var(--plum);
+  padding: 120px 80px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.final-cta::before {
+  content: 'Tableau';
+  font-family: var(--script);
+  font-size: 280px;
+  color: rgba(200,190,221,0.04);
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+  white-space: nowrap;
+  line-height: 1;
+}
+.final-cta-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+.final-cta-overline { font-size: 9.5px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--dusty); margin-bottom: 24px; display: block; }
+.final-cta-title { font-family: var(--serif); font-size: clamp(32px, 4.5vw, 64px); font-weight: 300; color: var(--cream); line-height: 1.05; margin-bottom: 20px; letter-spacing: -0.01em; }
+.final-cta-title em { font-style: italic; color: var(--lilac); display: block; }
+.final-cta-body { font-size: 14px; color: rgba(245,239,232,0.5); line-height: 1.9; font-weight: 300; margin-bottom: 48px; }
+.final-actions { display: flex; gap: 20px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.btn-final { background: transparent; color: var(--pale-lilac); padding: 16px 40px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; font-weight: 300; transition: all 0.3s; border: 1px solid rgba(200,190,221,0.38); display: inline-block; }
+.btn-final:hover { background: rgba(200,190,221,0.08); color: var(--lilac); border-color: rgba(200,190,221,0.6); }
+.btn-final-ghost { font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,239,232,0.35); text-decoration: none; border-bottom: 1px solid rgba(200,190,221,0.18); padding-bottom: 3px; transition: all 0.25s; }
+.btn-final-ghost:hover { color: var(--lilac); border-color: var(--lilac); }
+
+footer { background: var(--void); border-top: 1px solid rgba(200,190,221,0.1); padding: 80px 80px 40px; }
+.footer-inner { max-width: 1400px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 72px; padding-bottom: 64px; border-bottom: 1px solid rgba(200,190,221,0.06); margin-bottom: 40px; }
+.footer-brand-name { font-family: var(--serif); font-size: 18px; font-weight: 300; letter-spacing: 0.1em; color: var(--cream); margin-bottom: 16px; display: block; }
+.footer-tagline { font-family: var(--serif); font-size: 14px; font-style: italic; color: rgba(245,239,232,0.35); line-height: 1.7; font-weight: 300; max-width: 260px; }
+.footer-col-title { font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--dusty); margin-bottom: 24px; font-weight: 300; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-links a { font-size: 13px; color: rgba(245,239,232,0.4); text-decoration: none; font-weight: 300; transition: color 0.2s; }
+.footer-links a:hover { color: var(--lilac); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+.footer-copy { font-size: 10.5px; color: rgba(245,239,232,0.2); letter-spacing: 0.06em; }
+.footer-social { display: flex; gap: 28px; }
+.footer-social a { font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(245,239,232,0.25); text-decoration: none; transition: color 0.2s; }
+.footer-social a:hover { color: var(--lilac); }
+</style>
+</head>
+<body>
+
+<div class="announcement">Handcrafted in Kuala Lumpur &nbsp;·&nbsp; Same-day delivery available &nbsp;·&nbsp; Order by 12pm &nbsp;·&nbsp; WhatsApp to begin</div>
+
+<header>
+  <div class="header-inner">
+    <nav class="left">
+      <a href="shop.html">Shop</a>
+      <a href="collections.html">Collections</a>
+      <a href="occasions.html" class="active">Occasions</a>
+    </nav>
+    <a href="index.html" style="display:block;text-align:center;text-decoration:none;">
+      <span class="logo-text">Tableau</span>
+      <span class="logo-sub">Culture et Art Floral</span>
+    </a>
+    <div class="nav-right">
+      <a href="about.html">About</a>
+      <a href="journal.html">Journal</a>
+      <a href="#" class="nav-order">Order Now</a>
+    </div>
+  </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<section class="occ-hero">
+  <div class="hero-word-stack">
+    <span class="hero-word w1">Birthdays</span>
+    <span class="hero-word w2">Anniversaries</span>
+    <span class="hero-word w3">Weddings</span>
+  </div>
+  <div class="hero-grid"></div>
+  <div class="hero-overlay-bottom"></div>
+  <div class="hero-content">
+    <div class="reveal">
+      <div class="hero-overline">Shop by Occasion</div>
+      <h1 class="hero-title">The right flowers<br>for every<br><em>moment.</em></h1>
+      <div class="hero-occasion-pills">
+        <a href="#birthdays" class="occ-pill">Birthdays</a>
+        <a href="#anniversaries" class="occ-pill">Anniversaries</a>
+        <a href="#corporate" class="occ-pill">Corporate</a>
+        <a href="#weddings" class="occ-pill">Weddings</a>
+        <a href="#condolences" class="occ-pill">Condolences</a>
+        <a href="#new-arrival" class="occ-pill">New Arrivals</a>
+        <a href="#graduation" class="occ-pill">Graduation</a>
+      </div>
+    </div>
+  </div>
+  <span class="hero-scroll">Scroll to explore</span>
+</section>
+
+<!-- ══════════════════════════════
+     01 · BIRTHDAYS
+══════════════════════════════ -->
+<section class="occasion-section" id="birthdays">
+  <div class="occ-panel">
+    <div class="occ-visual ov-bday reveal">
+      <div class="occ-visual-bg ov-bday"></div>
+      <div class="occ-visual-overlay"></div>
+      <span class="occ-pill-tag">Most Ordered</span>
+      <div class="occ-visual-script">Birthday<br>Joy</div>
+      <span class="occ-visual-num">01</span>
+    </div>
+    <div class="occ-info reveal-slow">
+      <div class="occ-overline">Occasion 01</div>
+      <h2 class="occ-name">Birthdays &<br><em>Celebrations</em></h2>
+      <p class="occ-subtitle">Because some days deserve to feel extraordinary.</p>
+      <p class="occ-story">A birthday is a day marked for a person. What we give on that day says how well we've paid attention — to who they are, to what they love, to how they want to feel. Whether they appreciate restraint or want to be overwhelmed with beauty, we have the arrangement for them.</p>
+      <p class="occ-pull">"The right flowers on the right day — that's not just a gift. It's a memory that stays."</p>
+      <div class="occ-recs">
+        <span class="occ-recs-label">Recommended for this occasion</span>
+        <div class="occ-rec-list">
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Tableau Classic Dome</span><span class="occ-rec-price">From RM 388</span></a>
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Tableau Grande Dome</span><span class="occ-rec-price">From RM 688</span></a>
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Pastel Reverie</span><span class="occ-rec-price">From RM 388</span></a>
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Rose Petal Cloud</span><span class="occ-rec-price">From RM 438</span></a>
+        </div>
+      </div>
+      <div class="occ-order-row">
+        <a href="https://wa.me/60XXXXXXXXX?text=Hi%2C+I'd+like+to+order+flowers+for+a+birthday" class="btn-occ-order">Order via WhatsApp</a>
+        <a href="products.html" class="btn-occ-ghost">View all arrangements</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     02 · ANNIVERSARIES
+══════════════════════════════ -->
+<section class="occasion-section" id="anniversaries">
+  <div class="occ-panel flip">
+    <div class="occ-visual ov-anniv reveal">
+      <div class="occ-visual-bg ov-anniv"></div>
+      <div class="occ-visual-overlay"></div>
+      <span class="occ-pill-tag">Our Signature Occasion</span>
+      <div class="occ-visual-script">99<br>Roses</div>
+      <span class="occ-visual-num">02</span>
+    </div>
+    <div class="occ-info reveal-slow">
+      <div class="occ-overline">Occasion 02</div>
+      <h2 class="occ-name">Anniversaries &<br><em>Romance</em></h2>
+      <p class="occ-subtitle">A gesture that needs no explanation.</p>
+      <p class="occ-story">Romance, when expressed through flowers, becomes tangible. The Signature 99 was made for this — ninety-nine roses as a declaration that requires no words. But romance is not only grand gestures. It is also the small, specific arrangement chosen because you know exactly what she loves.</p>
+      <p class="occ-pull">"What we give on an anniversary says everything about how we have paid attention."</p>
+      <div class="occ-recs">
+        <span class="occ-recs-label">Recommended for this occasion</span>
+        <div class="occ-rec-list">
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Tableau Signature 99</span><span class="occ-rec-price">RM 888</span></a>
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Lilac Dreams</span><span class="occ-rec-price">From RM 388</span></a>
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Tableau Grande Dome</span><span class="occ-rec-price">From RM 688</span></a>
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Atelier Bespoke</span><span class="occ-rec-price">From RM 688</span></a>
+        </div>
+      </div>
+      <div class="occ-order-row">
+        <a href="https://wa.me/60XXXXXXXXX?text=Hi%2C+I'd+like+to+order+flowers+for+an+anniversary" class="btn-occ-order">Order via WhatsApp</a>
+        <a href="products.html" class="btn-occ-ghost">View all arrangements</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MARQUEE ══ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Tableau Floral Atelier</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Culture et Art Floral</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Every occasion. Made beautiful.</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Handcrafted in Kuala Lumpur</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Named, not numbered</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Same-day delivery available</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Tableau Floral Atelier</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Culture et Art Floral</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Every occasion. Made beautiful.</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Handcrafted in Kuala Lumpur</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Named, not numbered</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Same-day delivery available</span><span class="marquee-dot"></span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     03 · WEDDINGS
+══════════════════════════════ -->
+<section class="occasion-section" id="weddings">
+  <div class="occ-panel">
+    <div class="occ-visual ov-wed reveal">
+      <div class="occ-visual-bg ov-wed"></div>
+      <div class="occ-visual-overlay"></div>
+      <span class="occ-pill-tag">Bespoke Service</span>
+      <div class="occ-visual-script">Your<br>Day</div>
+      <span class="occ-visual-num">03</span>
+    </div>
+    <div class="occ-info reveal-slow">
+      <div class="occ-overline">Occasion 03</div>
+      <h2 class="occ-name">Weddings &<br><em>Solemnizations</em></h2>
+      <p class="occ-subtitle">Flowers that become part of the story told in photographs.</p>
+      <p class="occ-story">Your wedding is the one day that deserves to look exactly like the feeling. We work with couples and wedding planners to design florals that are made for the light, made for the memory. We begin with a mood board and a conversation. We end with flowers that feel inevitable.</p>
+      <p class="occ-pull">"We begin with a mood board and a conversation. We end with flowers that feel inevitable."</p>
+      <div class="occ-recs">
+        <span class="occ-recs-label">Wedding services</span>
+        <div class="occ-rec-list">
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Bridal Bouquet</span><span class="occ-rec-price">From RM 488</span></a>
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Table Centrepieces</span><span class="occ-rec-price">From RM 388</span></a>
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Ceremony Florals</span><span class="occ-rec-price">From RM 688</span></a>
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Full Floral Direction</span><span class="occ-rec-price">Enquire</span></a>
+        </div>
+      </div>
+      <div class="occ-order-row">
+        <a href="https://wa.me/60XXXXXXXXX?text=Hi%2C+I'd+like+to+enquire+about+wedding+florals" class="btn-occ-order">Begin Wedding Enquiry</a>
+        <a href="products.html" class="btn-occ-ghost">View all arrangements</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     04 · CONDOLENCES
+══════════════════════════════ -->
+<section class="occasion-section" id="condolences">
+  <div class="occ-panel flip">
+    <div class="occ-visual ov-cond reveal">
+      <div class="occ-visual-bg ov-cond"></div>
+      <div class="occ-visual-overlay"></div>
+      <span class="occ-pill-tag">Handled with care</span>
+      <div class="occ-visual-script">With<br>Grace</div>
+      <span class="occ-visual-num">04</span>
+    </div>
+    <div class="occ-info reveal-slow">
+      <div class="occ-overline">Occasion 04</div>
+      <h2 class="occ-name">Condolences &<br><em>Sympathy</em></h2>
+      <p class="occ-subtitle">In moments of loss, flowers carry what we cannot say.</p>
+      <p class="occ-story">We approach condolence arrangements with quietness, restraint, and deep respect. Soft tones. Gentle forms. Sincere care. These are not arrangements made to impress — they are made to be present in the most difficult moments, to say what words cannot.</p>
+      <p class="occ-pull">"Flowers for grief should not try too hard. They should simply, quietly, be there."</p>
+      <div class="occ-recs">
+        <span class="occ-recs-label">Recommended for this occasion</span>
+        <div class="occ-rec-list">
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Classic Dome — White</span><span class="occ-rec-price">From RM 388</span></a>
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Pastel Reverie</span><span class="occ-rec-price">From RM 388</span></a>
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Bespoke — Sympathy</span><span class="occ-rec-price">From RM 488</span></a>
+        </div>
+      </div>
+      <div class="occ-order-row">
+        <a href="https://wa.me/60XXXXXXXXX?text=Hi%2C+I'd+like+to+order+condolence+flowers" class="btn-occ-order">Order via WhatsApp</a>
+        <a href="products.html" class="btn-occ-ghost">View all arrangements</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     05 · NEW ARRIVAL
+══════════════════════════════ -->
+<section class="occasion-section" id="new-arrival">
+  <div class="occ-panel">
+    <div class="occ-visual ov-new reveal">
+      <div class="occ-visual-bg ov-new"></div>
+      <div class="occ-visual-overlay"></div>
+      <span class="occ-pill-tag">Joyful occasions</span>
+      <div class="occ-visual-script">New<br>Beginnings</div>
+      <span class="occ-visual-num">05</span>
+    </div>
+    <div class="occ-info reveal-slow">
+      <div class="occ-overline">Occasion 05</div>
+      <h2 class="occ-name">New Arrivals &<br><em>Milestones</em></h2>
+      <p class="occ-subtitle">Joy deserves flowers that look like joy feels.</p>
+      <p class="occ-story">A new baby, a promotion, a new home, a first day, a last day — these are the moments worth marking beautifully. The Ice Cream Series soft palettes are particularly beloved for new arrival gifts: their warmth, their lightness, their sense of a beginning.</p>
+      <p class="occ-pull">"Joy deserves flowers that look like joy feels — soft, abundant, impossible to ignore."</p>
+      <div class="occ-recs">
+        <span class="occ-recs-label">Recommended for this occasion</span>
+        <div class="occ-rec-list">
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Pastel Reverie</span><span class="occ-rec-price">From RM 388</span></a>
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Rose Petal Cloud</span><span class="occ-rec-price">From RM 438</span></a>
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Classic Dome — Blush</span><span class="occ-rec-price">From RM 388</span></a>
+        </div>
+      </div>
+      <div class="occ-order-row">
+        <a href="https://wa.me/60XXXXXXXXX?text=Hi%2C+I'd+like+to+order+flowers+for+a+new+arrival" class="btn-occ-order">Order via WhatsApp</a>
+        <a href="products.html" class="btn-occ-ghost">View all arrangements</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     06 · GRADUATION
+══════════════════════════════ -->
+<section class="occasion-section" id="graduation">
+  <div class="occ-panel flip">
+    <div class="occ-visual ov-grad reveal">
+      <div class="occ-visual-bg ov-grad"></div>
+      <div class="occ-visual-overlay"></div>
+      <span class="occ-pill-tag">Achievement</span>
+      <div class="occ-visual-script">A New<br>Chapter</div>
+      <span class="occ-visual-num">06</span>
+    </div>
+    <div class="occ-info reveal-slow">
+      <div class="occ-overline">Occasion 06</div>
+      <h2 class="occ-name">Graduation &<br><em>Achievement</em></h2>
+      <p class="occ-subtitle">For the end of something hard. And the beginning of everything else.</p>
+      <p class="occ-story">Years of effort deserve to be marked with something beautiful. Whether it's a university graduation, a professional achievement, or the completion of something that took everything — this is the moment to give flowers that feel as significant as what was earned.</p>
+      <p class="occ-pull">"This is not just a flower. It is the physical form of: I see what you did. I know what it cost. I'm proud of you."</p>
+      <div class="occ-recs">
+        <span class="occ-recs-label">Recommended for this occasion</span>
+        <div class="occ-rec-list">
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Tableau Classic Dome</span><span class="occ-rec-price">From RM 388</span></a>
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Tableau Grande Dome</span><span class="occ-rec-price">From RM 688</span></a>
+          <a href="product.html" class="occ-rec-row"><span class="occ-rec-name">Lilac Dreams</span><span class="occ-rec-price">From RM 388</span></a>
+        </div>
+      </div>
+      <div class="occ-order-row">
+        <a href="https://wa.me/60XXXXXXXXX?text=Hi%2C+I'd+like+to+order+flowers+for+a+graduation" class="btn-occ-order">Order via WhatsApp</a>
+        <a href="products.html" class="btn-occ-ghost">View all arrangements</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CORPORATE CALLOUT ══ -->
+<div class="corp-callout" id="corporate">
+  <div class="corp-inner">
+    <div class="reveal">
+      <div class="corp-overline">Corporate & Business Gifting</div>
+      <h2 class="corp-title">Flowers that<br><em>represent your brand.</em></h2>
+      <p class="corp-body">A gift that arrives from Tableau says that care was taken. That the relationship was considered. For client gifts, team appreciation, office openings, and brand activations — we offer corporate gifting with volume pricing and custom branding options.</p>
+      <a href="https://wa.me/60XXXXXXXXX?text=Hi%2C+I'd+like+to+enquire+about+corporate+gifting" class="btn-corp">Enquire about Corporate Gifting</a>
+    </div>
+    <div class="corp-tiers reveal-slow">
+      <div class="corp-tier">
+        <div><div class="corp-tier-name">Classic Volume</div><div class="corp-tier-desc">Classic Dome × 10 or more</div></div>
+        <div class="corp-tier-price">From RM 340 each</div>
+      </div>
+      <div class="corp-tier">
+        <div><div class="corp-tier-name">Grande Volume</div><div class="corp-tier-desc">Grande Dome × 5 or more</div></div>
+        <div class="corp-tier-price">From RM 620 each</div>
+      </div>
+      <div class="corp-tier">
+        <div><div class="corp-tier-name">Custom Gifting Sets</div><div class="corp-tier-desc">Branded, bespoke, any scale</div></div>
+        <div class="corp-tier-price">Enquire</div>
+      </div>
+      <div class="corp-tier">
+        <div><div class="corp-tier-name">Brand Activations</div><div class="corp-tier-desc">Installations, events, launches</div></div>
+        <div class="corp-tier-price">Enquire</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FINAL CTA ══ -->
+<div class="final-cta">
+  <div class="final-cta-inner reveal">
+    <span class="final-cta-overline">Whatever the Moment</span>
+    <h2 class="final-cta-title">The flowers are<br><em>already waiting.</em></h2>
+    <p class="final-cta-body">Every arrangement is handcrafted in Kuala Lumpur, available same-day when ordered by 12pm. WhatsApp us to begin — tell us the occasion, the person, the feeling. We'll take care of the rest.</p>
+    <div class="final-actions">
+      <a href="https://wa.me/60XXXXXXXXX?text=Hi%2C+I'd+like+to+place+an+order" class="btn-final">Order via WhatsApp</a>
+      <a href="products.html" class="btn-final-ghost">Browse all arrangements</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <span class="footer-brand-name">Tableau</span>
+        <p class="footer-tagline">"Where flowers become art — and art becomes feeling."</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Collections</p>
+        <ul class="footer-links">
+          <li><a href="products.html">All Arrangements</a></li>
+          <li><a href="collections.html#signature">Signature Series</a></li>
+          <li><a href="collections.html#ice-cream">Ice Cream Series</a></li>
+          <li><a href="collections.html#garden">Garden Series</a></li>
+          <li><a href="collections.html#bespoke">Atelier Bespoke</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Information</p>
+        <ul class="footer-links">
+          <li><a href="about.html">About Tableau</a></li>
+          <li><a href="delivery.html">Delivery</a></li>
+          <li><a href="care.html">Care Guide</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="journal.html">Journal</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Contact</p>
+        <ul class="footer-links">
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Email</a></li>
+          <li><a href="#" style="color:rgba(245,239,232,0.25);">Kuala Lumpur, Malaysia</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Tableau Floral Atelier. All rights reserved.</p>
+      <div class="footer-social"><a href="#">Instagram</a><a href="#">WhatsApp</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal, .reveal-slow').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
