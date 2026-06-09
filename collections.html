@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collections — Tableau Floral Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --void: #100c06;
+  --deep-plum: #2a1a1b;
+  --plum: #3A2C39;
+  --mauve: #5d4755;
+  --dusty: #826a80;
+  --lilac: #C8BEDD;
+  --pale-lilac: #F2D9EE;
+  --cream: #F5EFE8;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Jost', sans-serif;
+  --script: 'Pinyon Script', cursive;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--void); color: var(--cream); font-family: var(--sans); font-weight: 300; font-size: 15px; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity: 0.35; }
+
+/* ── SHARED ── */
+.announcement { background: var(--plum); color: var(--pale-lilac); text-align: center; padding: 11px 24px; font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 300; border-bottom: 1px solid rgba(200,190,221,0.15); }
+header { background: rgba(16,12,6,0.94); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(200,190,221,0.12); position: sticky; top: 0; z-index: 200; }
+.header-inner { max-width: 1400px; margin: 0 auto; padding: 0 56px; height: 76px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+nav.left { display: flex; gap: 40px; }
+nav a, .nav-right a { font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; color: rgba(245,239,232,0.5); font-weight: 300; transition: color 0.3s; }
+nav a:hover, .nav-right a:hover { color: var(--pale-lilac); }
+nav a.active { color: var(--lilac); }
+.logo-text { font-family: var(--serif); font-size: 22px; font-weight: 300; letter-spacing: 0.12em; color: var(--cream); text-decoration: none; display: block; text-align: center; }
+.logo-sub { font-size: 7.5px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--dusty); display: block; text-align: center; margin-top: 2px; }
+.nav-right { display: flex; justify-content: flex-end; gap: 32px; align-items: center; }
+.nav-order { border: 1px solid rgba(200,190,221,0.35) !important; color: var(--lilac) !important; padding: 9px 24px; font-size: 10px !important; letter-spacing: 0.2em !important; transition: all 0.3s !important; }
+.nav-order:hover { background: var(--plum) !important; color: var(--pale-lilac) !important; }
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.95s cubic-bezier(0.22,1,0.36,1), transform 0.95s cubic-bezier(0.22,1,0.36,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-slow { opacity: 0; transform: translateY(20px); transition: opacity 1.2s cubic-bezier(0.22,1,0.36,1) 0.2s, transform 1.2s cubic-bezier(0.22,1,0.36,1) 0.2s; }
+.reveal-slow.visible { opacity: 1; transform: translateY(0); }
+
+/* ── HERO — FULL BLEED ── */
+.collections-hero {
+  min-height: 90vh;
+  background: linear-gradient(160deg, #0c0608 0%, #1a0f18 30%, #2a1a28 60%, #3A2C39 100%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+.hero-bg-script {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--script);
+  font-size: clamp(180px, 22vw, 340px);
+  color: rgba(200,190,221,0.04);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+.hero-grid-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(200,190,221,0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(200,190,221,0.03) 1px, transparent 1px);
+  background-size: 120px 120px;
+  pointer-events: none;
+}
+.hero-gradient-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(to top, rgba(16,12,6,0.95) 0%, transparent 100%);
+  pointer-events: none;
+}
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 80px 80px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+}
+.hero-left {}
+.hero-overline {
+  font-size: 9.5px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--dusty);
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.hero-overline::before { content: ''; width: 28px; height: 1px; background: var(--dusty); }
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(52px, 7vw, 100px);
+  font-weight: 300;
+  line-height: 0.95;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--lilac);
+  font-family: var(--script);
+  font-size: 1.1em;
+  display: block;
+  margin-top: 8px;
+  letter-spacing: 0;
+}
+.hero-right { padding-bottom: 8px; }
+.hero-body {
+  font-size: 14px;
+  color: rgba(245,239,232,0.5);
+  line-height: 1.95;
+  font-weight: 300;
+  margin-bottom: 36px;
+  max-width: 420px;
+}
+.hero-series-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.hero-pill {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dusty);
+  border: 1px solid rgba(130,106,128,0.3);
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-decoration: none;
+  font-weight: 300;
+}
+.hero-pill:hover, .hero-pill.active {
+  border-color: rgba(200,190,221,0.4);
+  color: var(--lilac);
+  background: rgba(200,190,221,0.05);
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 36px;
+  right: 80px;
+  font-size: 8.5px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(245,239,232,0.2);
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-scroll::after { content: ''; width: 40px; height: 1px; background: rgba(245,239,232,0.15); }
+
+/* ── SERIES INTRO STRIP ── */
+.series-nav {
+  background: var(--deep-plum);
+  border-bottom: 1px solid rgba(200,190,221,0.08);
+  position: sticky;
+  top: 76px;
+  z-index: 100;
+}
+.series-nav-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 80px;
+  display: flex;
+  gap: 0;
+}
+.series-nav-tab {
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(245,239,232,0.35);
+  padding: 20px 32px;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.25s;
+  font-weight: 300;
+  text-decoration: none;
+  display: block;
+  white-space: nowrap;
+}
+.series-nav-tab:hover { color: var(--lilac); }
+.series-nav-tab.active { color: var(--lilac); border-bottom-color: var(--mauve); }
+
+/* ── SERIES SECTIONS ── */
+.series-section { border-bottom: 1px solid rgba(200,190,221,0.07); }
+
+/* FULL BLEED SERIES HERO */
+.series-hero {
+  min-height: 70vh;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.series-hero-bg {
+  position: absolute;
+  inset: 0;
+}
+.series-hero-script {
+  position: absolute;
+  top: 50%;
+  right: -40px;
+  transform: translateY(-50%);
+  font-family: var(--script);
+  font-size: clamp(140px, 18vw, 280px);
+  color: rgba(200,190,221,0.05);
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+  white-space: nowrap;
+}
+.series-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(16,12,6,0.96) 0%, rgba(16,12,6,0.3) 60%, transparent 100%);
+}
+.series-hero-content {
+  position: relative;
+  z-index: 5;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 80px 72px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+}
+.series-roman {
+  font-family: var(--script);
+  font-size: 72px;
+  color: var(--mauve);
+  line-height: 1;
+  margin-bottom: 16px;
+  display: block;
+}
+.series-name {
+  font-family: var(--serif);
+  font-size: clamp(36px, 4.5vw, 64px);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+.series-name em { font-style: italic; color: var(--lilac); }
+.series-tagline {
+  font-size: 13px;
+  color: rgba(245,239,232,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+.series-right-hero {}
+.series-pull-quote {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-style: italic;
+  color: var(--pale-lilac);
+  line-height: 1.55;
+  border-left: 2px solid var(--mauve);
+  padding-left: 24px;
+  margin-bottom: 36px;
+  font-weight: 300;
+  opacity: 0.85;
+}
+.series-meta-row {
+  display: flex;
+  gap: 40px;
+}
+.s-meta-item {}
+.s-meta-lbl { font-size: 8px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--dusty); margin-bottom: 4px; }
+.s-meta-val { font-family: var(--serif); font-size: 22px; color: var(--cream); font-weight: 300; }
+
+/* PRODUCT CARDS WITHIN SERIES */
+.series-products {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 80px 80px;
+  margin-top: -1px;
+}
+.series-products-grid {
+  display: grid;
+  gap: 1px;
+  background: rgba(200,190,221,0.06);
+}
+.series-products-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.series-products-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.s-card {
+  background: var(--void);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: background 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+.s-card:hover { background: var(--deep-plum); }
+.s-card-img {
+  aspect-ratio: 3/4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.s-card-img-text {
+  font-family: var(--script);
+  font-size: 52px;
+  color: rgba(200,190,221,0.1);
+  text-align: center;
+  line-height: 1.25;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+.s-card-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 7.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--lilac);
+  border: 1px solid rgba(200,190,221,0.28);
+  padding: 5px 12px;
+  background: rgba(16,12,6,0.72);
+  backdrop-filter: blur(4px);
+}
+.s-card-num {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  font-family: var(--script);
+  font-size: 40px;
+  color: rgba(200,190,221,0.1);
+  line-height: 1;
+}
+.s-card-info {
+  padding: 28px 32px 36px;
+  border-top: 1px solid rgba(200,190,221,0.07);
+}
+.s-card-series { font-size: 8px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--dusty); margin-bottom: 10px; }
+.s-card-name { font-family: var(--serif); font-size: 24px; font-weight: 300; color: var(--cream); margin-bottom: 6px; line-height: 1.1; }
+.s-card-desc { font-size: 12.5px; color: rgba(245,239,232,0.42); line-height: 1.72; font-weight: 300; margin-bottom: 20px; }
+.s-card-footer { display: flex; justify-content: space-between; align-items: center; }
+.s-card-price { font-family: var(--serif); font-size: 20px; color: var(--lilac); font-weight: 300; }
+.s-card-cta { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dusty); border-bottom: 1px solid rgba(130,106,128,0.35); padding-bottom: 2px; transition: all 0.25s; }
+.s-card:hover .s-card-cta { color: var(--lilac); border-color: var(--lilac); }
+
+/* card gradients */
+.c-sig-1 { background: linear-gradient(145deg, #1e1018 0%, #3A2C39 55%, #5d4755 100%); }
+.c-sig-2 { background: linear-gradient(155deg, #12080e 0%, #2a1a2a 50%, #422d45 100%); }
+.c-sig-3 { background: linear-gradient(140deg, #1a0a1a 0%, #3d2040 55%, #7a4880 100%); }
+.c-ice-1 { background: linear-gradient(145deg, #1e1020 0%, #3a2040 50%, #7a5080 100%); }
+.c-ice-2 { background: linear-gradient(155deg, #180f20 0%, #3a2060 50%, #6840a0 100%); }
+.c-ice-3 { background: linear-gradient(140deg, #200f1a 0%, #3a1830 50%, #6a3050 100%); }
+.c-grd-1 { background: linear-gradient(145deg, #0c0c10 0%, #1e1830 50%, #302050 100%); }
+.c-grd-2 { background: linear-gradient(155deg, #0e0e14 0%, #1a1828 50%, #282240 100%); }
+.c-seas-1 { background: linear-gradient(140deg, #100808 0%, #2a1010 55%, #501820 100%); }
+
+/* ── SERIES BG COLOURS ── */
+.sig-bg { background: linear-gradient(160deg, #100810 0%, #200f20 35%, #3A2C39 70%, #4a3848 100%); }
+.ice-bg { background: linear-gradient(160deg, #0f0818 0%, #201530 40%, #3a2060 75%, #5a3880 100%); }
+.grd-bg { background: linear-gradient(160deg, #080810 0%, #10101e 40%, #1a1830 75%, #252340 100%); }
+.sea-bg { background: linear-gradient(160deg, #100606 0%, #200808 40%, #3a1010 75%, #501818 100%); }
+
+/* ── BESPOKE STRIP ── */
+.bespoke-strip {
+  background: var(--plum);
+  border-top: 1px solid rgba(200,190,221,0.1);
+  padding: 120px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.bespoke-strip::before {
+  content: 'Bespoke';
+  font-family: var(--script);
+  font-size: 320px;
+  color: rgba(200,190,221,0.035);
+  position: absolute;
+  bottom: -60px;
+  right: -40px;
+  pointer-events: none;
+  line-height: 1;
+}
+.bespoke-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; position: relative; z-index: 1; }
+.bespoke-overline { font-size: 9.5px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--dusty); margin-bottom: 24px; display: flex; align-items: center; gap: 14px; }
+.bespoke-overline::before { content: ''; width: 24px; height: 1px; background: var(--dusty); display: block; }
+.bespoke-title { font-family: var(--serif); font-size: clamp(34px, 4.5vw, 62px); font-weight: 300; color: var(--cream); line-height: 1.05; margin-bottom: 24px; letter-spacing: -0.01em; }
+.bespoke-title em { font-style: italic; color: var(--lilac); display: block; }
+.bespoke-body { font-size: 14px; color: rgba(245,239,232,0.5); line-height: 1.95; font-weight: 300; margin-bottom: 44px; }
+.btn-wa { background: transparent; color: var(--pale-lilac); padding: 16px 40px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; font-weight: 300; transition: all 0.3s; border: 1px solid rgba(200,190,221,0.4); display: inline-block; }
+.btn-wa:hover { background: rgba(200,190,221,0.08); color: var(--lilac); border-color: rgba(200,190,221,0.6); }
+.bespoke-right-card { background: rgba(16,12,6,0.4); border: 1px solid rgba(200,190,221,0.1); padding: 48px; }
+.bespoke-card-title { font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--dusty); margin-bottom: 32px; }
+.bespoke-use-cases { list-style: none; display: flex; flex-direction: column; gap: 1px; }
+.bespoke-use-cases li { display: flex; align-items: center; gap: 20px; padding: 18px 0; border-bottom: 1px solid rgba(200,190,221,0.06); font-size: 13px; color: rgba(245,239,232,0.5); font-weight: 300; }
+.bespoke-use-cases li:last-child { border-bottom: none; }
+.use-case-n { font-family: var(--script); font-size: 24px; color: var(--mauve); line-height: 1; min-width: 24px; }
+
+/* ── FOOTER ── */
+footer { background: var(--void); border-top: 1px solid rgba(200,190,221,0.1); padding: 80px 80px 40px; }
+.footer-inner { max-width: 1400px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 72px; padding-bottom: 64px; border-bottom: 1px solid rgba(200,190,221,0.06); margin-bottom: 40px; }
+.footer-brand-name { font-family: var(--serif); font-size: 18px; font-weight: 300; letter-spacing: 0.1em; color: var(--cream); margin-bottom: 16px; display: block; }
+.footer-tagline { font-family: var(--serif); font-size: 14px; font-style: italic; color: rgba(245,239,232,0.35); line-height: 1.7; font-weight: 300; max-width: 260px; }
+.footer-col-title { font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--dusty); margin-bottom: 24px; font-weight: 300; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-links a { font-size: 13px; color: rgba(245,239,232,0.4); text-decoration: none; font-weight: 300; transition: color 0.2s; }
+.footer-links a:hover { color: var(--lilac); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+.footer-copy { font-size: 10.5px; color: rgba(245,239,232,0.2); letter-spacing: 0.06em; }
+.footer-social { display: flex; gap: 28px; }
+.footer-social a { font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(245,239,232,0.25); text-decoration: none; transition: color 0.2s; }
+.footer-social a:hover { color: var(--lilac); }
+</style>
+</head>
+<body>
+
+<div class="announcement">Handcrafted in Kuala Lumpur &nbsp;·&nbsp; Same-day delivery available &nbsp;·&nbsp; Order by 12pm &nbsp;·&nbsp; WhatsApp to begin</div>
+
+<header>
+  <div class="header-inner">
+    <nav class="left">
+      <a href="shop.html">Shop</a>
+      <a href="collections.html" class="active">Collections</a>
+      <a href="occasions.html">Occasions</a>
+    </nav>
+    <a href="index.html" style="display:block;text-align:center;text-decoration:none;">
+      <span class="logo-text">Tableau</span>
+      <span class="logo-sub">Culture et Art Floral</span>
+    </a>
+    <div class="nav-right">
+      <a href="about.html">About</a>
+      <a href="journal.html">Journal</a>
+      <a href="#" class="nav-order">Order Now</a>
+    </div>
+  </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<section class="collections-hero">
+  <div class="hero-bg-script">Collections</div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-gradient-overlay"></div>
+  <div class="hero-content">
+    <div class="reveal">
+      <div class="hero-overline">Browse by Series</div>
+      <h1 class="hero-title">Four worlds.<br>One<br><em>atelier.</em></h1>
+    </div>
+    <div class="reveal-slow">
+      <p class="hero-body">Each series was born from a distinct feeling — a different kind of beauty we needed to make visible. Structured or wild. Soft or dramatic. Find the world that speaks for you.</p>
+      <div class="hero-series-pills">
+        <a href="#signature" class="hero-pill active">I · Signature</a>
+        <a href="#ice-cream" class="hero-pill">II · Ice Cream</a>
+        <a href="#garden" class="hero-pill">III · Garden</a>
+        <a href="#seasonal" class="hero-pill">IV · Seasonal</a>
+      </div>
+    </div>
+  </div>
+  <span class="hero-scroll">Scroll to explore</span>
+</section>
+
+<!-- ══ STICKY SERIES NAV ══ -->
+<div class="series-nav">
+  <div class="series-nav-inner">
+    <a href="#signature" class="series-nav-tab active">I · Signature Series</a>
+    <a href="#ice-cream" class="series-nav-tab">II · Ice Cream Series</a>
+    <a href="#garden" class="series-nav-tab">III · Garden Series</a>
+    <a href="#seasonal" class="series-nav-tab">IV · Seasonal</a>
+    <a href="#bespoke" class="series-nav-tab">V · Atelier Bespoke</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     SERIES I — SIGNATURE
+══════════════════════════════ -->
+<section class="series-section" id="signature">
+  <div class="series-hero sig-bg">
+    <div class="series-hero-bg"></div>
+    <div class="series-hero-script">Signature</div>
+    <div class="series-hero-overlay"></div>
+    <div class="series-hero-content">
+      <div class="reveal">
+        <span class="series-roman">I</span>
+        <h2 class="series-name">Signature<br><em>Series</em></h2>
+        <p class="series-tagline">Structure. Precision. The dome.</p>
+      </div>
+      <div class="reveal-slow">
+        <p class="series-pull-quote">"The Signature series begins with the dome — a geometry we return to always. Because beauty, we believe, is most powerful when it has a shape."</p>
+        <div class="series-meta-row">
+          <div class="s-meta-item"><div class="s-meta-lbl">Arrangements</div><div class="s-meta-val">3 pieces</div></div>
+          <div class="s-meta-item"><div class="s-meta-lbl">Starting from</div><div class="s-meta-val">RM 388</div></div>
+          <div class="s-meta-item"><div class="s-meta-lbl">Stems</div><div class="s-meta-val">35 – 220</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="series-products">
+    <div class="series-products-grid cols-3">
+      <a href="product.html" class="s-card reveal">
+        <div class="s-card-img c-sig-1">
+          <span class="s-card-badge">Most Loved</span>
+          <div class="s-card-img-text">Tableau<br>Classic</div>
+          <span class="s-card-num">01</span>
+        </div>
+        <div class="s-card-info">
+          <div class="s-card-series">Signature Series</div>
+          <div class="s-card-name">Tableau Classic Dome</div>
+          <p class="s-card-desc">35–75 stems. Garden roses, seasonal fillers. Perfectly domed. The arrangement that defines us — made for the person who understands that simple, done perfectly, is everything.</p>
+          <div class="s-card-footer"><span class="s-card-price">From RM 388</span><span class="s-card-cta">View Details →</span></div>
+        </div>
+      </a>
+      <a href="product.html" class="s-card reveal">
+        <div class="s-card-img c-sig-2">
+          <div class="s-card-img-text">Tableau<br>Grande</div>
+          <span class="s-card-num">02</span>
+        </div>
+        <div class="s-card-info">
+          <div class="s-card-series">Signature Series</div>
+          <div class="s-card-name">Tableau Grande Dome</div>
+          <p class="s-card-desc">60–110 stems. Garden roses, peonies, ranunculus. For those who believe that more — when intentional — is its own kind of restraint. A dome that commands a room quietly.</p>
+          <div class="s-card-footer"><span class="s-card-price">From RM 688</span><span class="s-card-cta">View Details →</span></div>
+        </div>
+      </a>
+      <a href="product.html" class="s-card reveal">
+        <div class="s-card-img c-sig-3">
+          <span class="s-card-badge">Iconic</span>
+          <div class="s-card-img-text">Signature<br>99</div>
+          <span class="s-card-num">03</span>
+        </div>
+        <div class="s-card-info">
+          <div class="s-card-series">Signature Series</div>
+          <div class="s-card-name">Tableau Signature 99</div>
+          <p class="s-card-desc">Exactly 99 Ecuadorian roses. One colour. Perfectly domed. A gesture with no need for words — the number says everything. We simply arrange it beautifully.</p>
+          <div class="s-card-footer"><span class="s-card-price">RM 888</span><span class="s-card-cta">View Details →</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     SERIES II — ICE CREAM
+══════════════════════════════ -->
+<section class="series-section" id="ice-cream">
+  <div class="series-hero ice-bg">
+    <div class="series-hero-bg"></div>
+    <div class="series-hero-script">Ice Cream</div>
+    <div class="series-hero-overlay"></div>
+    <div class="series-hero-content">
+      <div class="reveal">
+        <span class="series-roman">II</span>
+        <h2 class="series-name">Ice Cream<br><em>Series</em></h2>
+        <p class="series-tagline">Colour as a feeling. Soft. Gradient. Dreamy.</p>
+      </div>
+      <div class="reveal-slow">
+        <p class="series-pull-quote">"Colour is not decoration. In the Ice Cream series, every shade is chosen for the feeling it carries — not the look it creates."</p>
+        <div class="series-meta-row">
+          <div class="s-meta-item"><div class="s-meta-lbl">Arrangements</div><div class="s-meta-val">3 pieces</div></div>
+          <div class="s-meta-item"><div class="s-meta-lbl">Starting from</div><div class="s-meta-val">RM 388</div></div>
+          <div class="s-meta-item"><div class="s-meta-lbl">Palette</div><div class="s-meta-val">Fixed tones</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="series-products">
+    <div class="series-products-grid cols-3">
+      <a href="product.html" class="s-card reveal">
+        <div class="s-card-img c-ice-1">
+          <span class="s-card-badge">New</span>
+          <div class="s-card-img-text">Pastel<br>Reverie</div>
+          <span class="s-card-num">04</span>
+        </div>
+        <div class="s-card-info">
+          <div class="s-card-series">Ice Cream Series</div>
+          <div class="s-card-name">Pastel Reverie</div>
+          <p class="s-card-desc">40–70 stems. Blush, champagne, ivory gradient. Colour layered like a painting — chosen for harmony, not contrast. The Ice Cream series at its most whispered.</p>
+          <div class="s-card-footer"><span class="s-card-price">From RM 388</span><span class="s-card-cta">View Details →</span></div>
+        </div>
+      </a>
+      <a href="product.html" class="s-card reveal">
+        <div class="s-card-img c-ice-2">
+          <div class="s-card-img-text">Lilac<br>Dreams</div>
+          <span class="s-card-num">05</span>
+        </div>
+        <div class="s-card-info">
+          <div class="s-card-series">Ice Cream Series</div>
+          <div class="s-card-name">Lilac Dreams</div>
+          <p class="s-card-desc">35–65 stems. Violet, lavender, pale mauve. A tonal study in purple for those who choose colour with precision. Not pink. Not purple. Precisely, specifically lilac.</p>
+          <div class="s-card-footer"><span class="s-card-price">From RM 388</span><span class="s-card-cta">View Details →</span></div>
+        </div>
+      </a>
+      <a href="product.html" class="s-card reveal">
+        <div class="s-card-img c-ice-3">
+          <div class="s-card-img-text">Rose Petal<br>Cloud</div>
+          <span class="s-card-num">06</span>
+        </div>
+        <div class="s-card-info">
+          <div class="s-card-series">Ice Cream Series</div>
+          <div class="s-card-name">Rose Petal Cloud</div>
+          <p class="s-card-desc">50–82 stems. Nude cream through coral to deep blush. The warmth of late afternoon in flower form. Beloved for birthdays, new arrivals, all the tender moments.</p>
+          <div class="s-card-footer"><span class="s-card-price">From RM 438</span><span class="s-card-cta">View Details →</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     SERIES III — GARDEN
+══════════════════════════════ -->
+<section class="series-section" id="garden">
+  <div class="series-hero grd-bg">
+    <div class="series-hero-bg"></div>
+    <div class="series-hero-script">Garden</div>
+    <div class="series-hero-overlay"></div>
+    <div class="series-hero-content">
+      <div class="reveal">
+        <span class="series-roman">III</span>
+        <h2 class="series-name">Garden<br><em>Series</em></h2>
+        <p class="series-tagline">Lush. Wild. Abundant. English country at its finest.</p>
+      </div>
+      <div class="reveal-slow">
+        <p class="series-pull-quote">"The Garden series asks us to be generous. To let the flowers spill. To trust that abundance, when it is intentional, is its own kind of luxury."</p>
+        <div class="series-meta-row">
+          <div class="s-meta-item"><div class="s-meta-lbl">Arrangements</div><div class="s-meta-val">2 pieces</div></div>
+          <div class="s-meta-item"><div class="s-meta-lbl">Starting from</div><div class="s-meta-val">RM 488</div></div>
+          <div class="s-meta-item"><div class="s-meta-lbl">Stems</div><div class="s-meta-val">45 – 220</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="series-products">
+    <div class="series-products-grid cols-2">
+      <a href="product.html" class="s-card reveal">
+        <div class="s-card-img c-grd-1" style="aspect-ratio: 16/9;">
+          <div class="s-card-img-text">Le<br>Jardin</div>
+          <span class="s-card-num">07</span>
+        </div>
+        <div class="s-card-info">
+          <div class="s-card-series">Garden Series</div>
+          <div class="s-card-name">Le Jardin</div>
+          <p class="s-card-desc">45–90 stems. Foxglove, sweet pea, garden rose, ranunculus — the blooms of an English country garden at its most abundant. Wild and intentional at once. Every stem chosen with great care.</p>
+          <div class="s-card-footer"><span class="s-card-price">From RM 488</span><span class="s-card-cta">View Details →</span></div>
+        </div>
+      </a>
+      <a href="product.html" class="s-card reveal">
+        <div class="s-card-img c-grd-2" style="aspect-ratio: 16/9;">
+          <span class="s-card-badge">Statement Piece</span>
+          <div class="s-card-img-text">Tableau<br>Maison</div>
+          <span class="s-card-num">08</span>
+        </div>
+        <div class="s-card-info">
+          <div class="s-card-series">Garden Series</div>
+          <div class="s-card-name">Tableau Maison</div>
+          <p class="s-card-desc">150–220 stems. For a room, a table, a celebration that deserves to be surrounded by something extraordinary. The Maison is not a gift you hold — it is a room you compose.</p>
+          <div class="s-card-footer"><span class="s-card-price">From RM 1,288</span><span class="s-card-cta">View Details →</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     SERIES IV — SEASONAL
+══════════════════════════════ -->
+<section class="series-section" id="seasonal">
+  <div class="series-hero sea-bg">
+    <div class="series-hero-bg"></div>
+    <div class="series-hero-script">Seasonal</div>
+    <div class="series-hero-overlay"></div>
+    <div class="series-hero-content">
+      <div class="reveal">
+        <span class="series-roman">IV</span>
+        <h2 class="series-name">Seasonal<br><em>Limited</em></h2>
+        <p class="series-tagline">Available only when the blooms are at their finest.</p>
+      </div>
+      <div class="reveal-slow">
+        <p class="series-pull-quote">"Seasonal pieces exist because some beauty cannot be scheduled — it can only be made when the right flowers arrive. These are those pieces."</p>
+        <div class="series-meta-row">
+          <div class="s-meta-item"><div class="s-meta-lbl">Availability</div><div class="s-meta-val">Limited</div></div>
+          <div class="s-meta-item"><div class="s-meta-lbl">Starting from</div><div class="s-meta-val">RM 428</div></div>
+          <div class="s-meta-item"><div class="s-meta-lbl">WhatsApp first</div><div class="s-meta-val">To confirm</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="series-products">
+    <div class="series-products-grid cols-3">
+      <a href="product.html" class="s-card reveal" style="grid-column: 2;">
+        <div class="s-card-img c-seas-1">
+          <span class="s-card-badge">Limited Run</span>
+          <div class="s-card-img-text">Velvet<br>Noir</div>
+          <span class="s-card-num">09</span>
+        </div>
+        <div class="s-card-info">
+          <div class="s-card-series">Seasonal · Limited</div>
+          <div class="s-card-name">Velvet Noir</div>
+          <p class="s-card-desc">40–70 stems. Black Baccara, deep burgundy, chocolate cosmos. Dark, dramatic, sculptural. For the bold anniversary. For those who understand that darkness, too, is beautiful.</p>
+          <div class="s-card-footer"><span class="s-card-price">From RM 428</span><span class="s-card-cta">Check Availability →</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BESPOKE ══ -->
+<div class="bespoke-strip" id="bespoke">
+  <div class="bespoke-inner">
+    <div class="reveal">
+      <div class="bespoke-overline">V · Atelier Bespoke</div>
+      <h2 class="bespoke-title">None of these<br><em>feel quite right?</em></h2>
+      <p class="bespoke-body">The Atelier Bespoke service is for those who need something entirely their own. A colour we don't have. A scale we haven't offered. A feeling that can't be named yet. Brief us. We compose from there.</p>
+      <a href="https://wa.me/60XXXXXXXXX?text=Hi%2C+I'd+like+to+begin+a+bespoke+order" class="btn-wa">Begin a Bespoke Order</a>
+    </div>
+    <div class="bespoke-right-card reveal-slow">
+      <div class="bespoke-card-title">Bespoke is for</div>
+      <ul class="bespoke-use-cases">
+        <li><span class="use-case-n">I</span> Weddings & solemnizations</li>
+        <li><span class="use-case-n">II</span> Corporate gifting in volume</li>
+        <li><span class="use-case-n">III</span> Brand activations & events</li>
+        <li><span class="use-case-n">IV</span> A gesture that cannot be off-the-shelf</li>
+        <li><span class="use-case-n">V</span> Custom colours, custom scale, custom feeling</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <span class="footer-brand-name">Tableau</span>
+        <p class="footer-tagline">"Where flowers become art — and art becomes feeling."</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Collections</p>
+        <ul class="footer-links">
+          <li><a href="products.html">All Arrangements</a></li>
+          <li><a href="collections.html#signature">Signature Series</a></li>
+          <li><a href="collections.html#ice-cream">Ice Cream Series</a></li>
+          <li><a href="collections.html#garden">Garden Series</a></li>
+          <li><a href="collections.html#bespoke">Atelier Bespoke</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Information</p>
+        <ul class="footer-links">
+          <li><a href="about.html">About Tableau</a></li>
+          <li><a href="delivery.html">Delivery</a></li>
+          <li><a href="care.html">Care Guide</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="journal.html">Journal</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Contact</p>
+        <ul class="footer-links">
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Email</a></li>
+          <li><a href="#" style="color:rgba(245,239,232,0.25);">Kuala Lumpur, Malaysia</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Tableau Floral Atelier. All rights reserved.</p>
+      <div class="footer-social"><a href="#">Instagram</a><a href="#">WhatsApp</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal, .reveal-slow').forEach(el => observer.observe(el));
+
+// Sticky series nav highlight
+const sections = document.querySelectorAll('.series-section, #bespoke');
+const navTabs = document.querySelectorAll('.series-nav-tab');
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navTabs.forEach(t => t.classList.remove('active'));
+      const id = e.target.id;
+      const match = document.querySelector(`.series-nav-tab[href="#${id}"]`);
+      if (match) match.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => sectionObserver.observe(s));
+</script>
+</body>
+</html>
