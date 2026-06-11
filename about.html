@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Tableau Floral Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --void: #100c06;
+  --deep-plum: #2a1a1b;
+  --plum: #3A2C39;
+  --mauve: #5d4755;
+  --dusty: #826a80;
+  --lilac: #C8BEDD;
+  --pale-lilac: #F2D9EE;
+  --cream: #F5EFE8;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Jost', sans-serif;
+  --script: 'Pinyon Script', cursive;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--void); color: var(--cream); font-family: var(--sans); font-weight: 300; font-size: 15px; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity: 0.35; }
+
+.announcement { background: var(--plum); color: var(--pale-lilac); text-align: center; padding: 11px 24px; font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 300; border-bottom: 1px solid rgba(200,190,221,0.15); }
+header { background: rgba(16,12,6,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(200,190,221,0.12); position: sticky; top: 0; z-index: 100; }
+.header-inner { max-width: 1400px; margin: 0 auto; padding: 0 56px; height: 76px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+nav.left { display: flex; gap: 40px; }
+nav a, .nav-right a { font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; color: rgba(245,239,232,0.55); font-weight: 300; transition: color 0.3s ease; }
+nav a:hover, .nav-right a:hover { color: var(--pale-lilac); }
+nav a.active { color: var(--lilac); }
+.logo-text { font-family: var(--serif); font-size: 22px; font-weight: 300; letter-spacing: 0.12em; color: var(--cream); text-decoration: none; display: block; text-align: center; }
+.logo-sub { font-size: 7.5px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--dusty); font-family: var(--sans); display: block; text-align: center; margin-top: 2px; }
+.nav-right { display: flex; justify-content: flex-end; gap: 32px; align-items: center; }
+.nav-order { border: 1px solid rgba(200,190,221,0.35) !important; color: var(--lilac) !important; padding: 9px 24px; font-size: 10px !important; letter-spacing: 0.2em !important; transition: all 0.3s ease !important; }
+.nav-order:hover { background: var(--plum) !important; }
+.section-label { font-size: 9.5px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--dusty); font-weight: 300; display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+.section-label::before { content: ''; width: 24px; height: 1px; background: var(--dusty); }
+.btn-primary { background: transparent; color: var(--pale-lilac); padding: 14px 40px; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; font-weight: 300; transition: all 0.35s ease; border: 1px solid rgba(200,190,221,0.4); display: inline-block; }
+.btn-primary:hover { background: rgba(200,190,221,0.08); color: var(--lilac); }
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.85s cubic-bezier(0.22,1,0.36,1), transform 0.85s cubic-bezier(0.22,1,0.36,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── ABOUT HERO ── */
+.about-hero {
+  min-height: 72vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid rgba(200,190,221,0.07);
+}
+.about-hero-left {
+  padding: 100px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid rgba(200,190,221,0.07);
+  position: relative;
+}
+.about-hero-overline {
+  font-size: 9.5px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--dusty);
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.about-hero-overline::before { content: ''; width: 32px; height: 1px; background: var(--dusty); display: block; }
+.about-hero-title {
+  font-family: var(--serif);
+  font-size: clamp(40px, 5vw, 68px);
+  font-weight: 300;
+  line-height: 1.08;
+  color: var(--cream);
+  margin-bottom: 16px;
+}
+.about-hero-title em {
+  font-style: italic;
+  color: var(--lilac);
+  font-family: var(--script);
+  font-size: 1.15em;
+  display: block;
+}
+.about-hero-right {
+  padding: 100px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--deep-plum);
+}
+.about-opening {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-style: italic;
+  color: var(--pale-lilac);
+  line-height: 1.55;
+  margin-bottom: 40px;
+  font-weight: 300;
+  border-left: 2px solid var(--mauve);
+  padding-left: 28px;
+}
+.about-opening-body {
+  font-size: 14px;
+  color: rgba(245,239,232,0.55);
+  line-height: 1.95;
+  font-weight: 300;
+}
+.about-hero-stat {
+  display: flex;
+  gap: 48px;
+  padding-top: 48px;
+  border-top: 1px solid rgba(200,190,221,0.08);
+  margin-top: 48px;
+}
+.stat-item {}
+.stat-value { font-family: var(--serif); font-size: 36px; color: var(--cream); font-weight: 300; line-height: 1; margin-bottom: 6px; }
+.stat-label { font-size: 8.5px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dusty); font-weight: 300; }
+
+/* ── PHILOSOPHY ── */
+.philosophy {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 100px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 120px;
+  border-bottom: 1px solid rgba(200,190,221,0.07);
+}
+.philosophy-left {}
+.philosophy-title {
+  font-family: var(--serif);
+  font-size: clamp(32px, 3.5vw, 50px);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 40px;
+}
+.philosophy-title em { font-style: italic; color: var(--lilac); display: block; }
+.philosophy-body {
+  font-size: 14px;
+  color: rgba(245,239,232,0.55);
+  line-height: 1.95;
+  font-weight: 300;
+  margin-bottom: 28px;
+}
+.philosophy-principles { display: flex; flex-direction: column; gap: 1px; margin-top: 16px; }
+.principle {
+  background: var(--deep-plum);
+  padding: 28px 32px;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 20px;
+  align-items: start;
+  border-left: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+.principle:hover { border-left-color: var(--mauve); }
+.principle-n { font-family: var(--script); font-size: 28px; color: var(--mauve); line-height: 1.1; }
+.principle-content {}
+.principle-title { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream); margin-bottom: 6px; font-weight: 300; }
+.principle-body { font-size: 13px; color: rgba(245,239,232,0.45); line-height: 1.75; font-weight: 300; }
+
+/* ── TIMELINE ── */
+.timeline-section {
+  background: var(--deep-plum);
+  border-top: 1px solid rgba(200,190,221,0.07);
+  border-bottom: 1px solid rgba(200,190,221,0.07);
+  padding: 100px 0;
+}
+.timeline-inner { max-width: 1400px; margin: 0 auto; padding: 0 80px; }
+.timeline-title { font-family: var(--serif); font-size: clamp(28px, 3vw, 44px); font-weight: 300; color: var(--cream); line-height: 1.1; margin-bottom: 72px; }
+.timeline-title em { font-style: italic; color: var(--lilac); }
+.timeline { position: relative; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(200,190,221,0.15) 10%, rgba(200,190,221,0.15) 90%, transparent);
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 48px;
+  padding: 40px 0;
+  border-bottom: 1px solid rgba(200,190,221,0.06);
+  position: relative;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 48px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mauve);
+  border: 1px solid var(--mauve);
+}
+.timeline-item:last-child { border-bottom: none; }
+.timeline-year { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--dusty); padding-left: 24px; }
+.timeline-content {}
+.timeline-event { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream); margin-bottom: 8px; font-weight: 300; }
+.timeline-body { font-size: 13.5px; color: rgba(245,239,232,0.5); line-height: 1.85; font-weight: 300; }
+
+/* ── VALUES ── */
+.values-section {
+  padding: 100px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(200,190,221,0.07);
+}
+.values-header { margin-bottom: 72px; }
+.values-title { font-family: var(--serif); font-size: clamp(28px,3.5vw,46px); font-weight: 300; color: var(--cream); }
+.values-title em { font-style: italic; color: var(--lilac); }
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(200,190,221,0.06);
+}
+.value-card {
+  background: var(--void);
+  padding: 44px 36px;
+  transition: background 0.35s;
+}
+.value-card:hover { background: var(--deep-plum); }
+.value-icon {
+  font-family: var(--script);
+  font-size: 44px;
+  color: var(--mauve);
+  margin-bottom: 20px;
+  display: block;
+  line-height: 1;
+}
+.value-name {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 14px;
+  font-weight: 300;
+}
+.value-desc { font-size: 13px; color: rgba(245,239,232,0.45); line-height: 1.8; font-weight: 300; }
+
+/* ── CTA ── */
+.about-cta {
+  background: var(--plum);
+  padding: 100px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.about-cta::before {
+  content: 'Tableau';
+  font-family: var(--script);
+  font-size: 260px;
+  color: rgba(200,190,221,0.04);
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.cta-eyebrow { font-size: 9.5px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--dusty); margin-bottom: 20px; display: block; }
+.cta-title { font-family: var(--serif); font-size: clamp(28px,3.5vw,48px); font-weight: 300; color: var(--cream); margin-bottom: 16px; line-height: 1.2; }
+.cta-title em { font-style: italic; color: var(--lilac); }
+.cta-body { font-size: 14px; color: rgba(245,239,232,0.5); max-width: 460px; margin: 0 auto 44px; line-height: 1.9; font-weight: 300; }
+
+footer { background: var(--void); border-top: 1px solid rgba(200,190,221,0.1); padding: 80px 80px 40px; }
+.footer-inner { max-width: 1400px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 72px; padding-bottom: 64px; border-bottom: 1px solid rgba(200,190,221,0.06); margin-bottom: 40px; }
+.footer-brand-name { font-family: var(--serif); font-size: 18px; font-weight: 300; letter-spacing: 0.1em; color: var(--cream); margin-bottom: 16px; display: block; }
+.footer-tagline { font-family: var(--serif); font-size: 14px; font-style: italic; color: rgba(245,239,232,0.35); line-height: 1.7; font-weight: 300; max-width: 260px; }
+.footer-col-title { font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--dusty); margin-bottom: 24px; font-weight: 300; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-links a { font-size: 13px; color: rgba(245,239,232,0.4); text-decoration: none; font-weight: 300; transition: color 0.2s; }
+.footer-links a:hover { color: var(--lilac); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+.footer-copy { font-size: 10.5px; color: rgba(245,239,232,0.2); letter-spacing: 0.06em; }
+.footer-social { display: flex; gap: 28px; }
+.footer-social a { font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(245,239,232,0.25); text-decoration: none; transition: color 0.2s; }
+.footer-social a:hover { color: var(--lilac); }
+
+/* ═══════════════════════════════════════════════════
+   TABLEAU — SHARED MOBILE STYLES
+   Injected into all pages before </style>
+═══════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── ANNOUNCEMENT ── */
+  .announcement {
+    font-size: 9px;
+    padding: 9px 16px;
+    letter-spacing: 0.14em;
+  }
+
+  /* ── HEADER ── */
+  .header-inner {
+    padding: 0 20px;
+    height: 64px;
+    grid-template-columns: 1fr auto;
+    position: relative;
+  }
+  nav.left { display: none; }
+  .nav-right { display: none; }
+  .logo-text { font-size: 18px; }
+  .logo-sub { font-size: 6.5px; letter-spacing: 0.25em; }
+
+  /* Mobile hamburger hint */
+  .header-inner::after {
+    content: '☰';
+    font-size: 18px;
+    color: rgba(245,239,232,0.45);
+    cursor: pointer;
+    padding: 8px;
+    justify-self: end;
+  }
+
+  /* ── PAGE INTRO / HERO SHARED ── */
+  .page-intro-inner,
+  .page-intro-block .page-intro-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 56px 24px 48px;
+  }
+  .page-stats { gap: 0; flex-wrap: wrap; }
+  .page-stat { min-width: 50%; padding: 0 0 20px; border-right: none; margin-right: 0; }
+  .page-title { font-size: clamp(40px, 12vw, 56px); }
+  .page-intro-body { font-size: 13.5px; }
+
+  /* ── COLLECTIONS HERO ── */
+  .collections-hero { min-height: 100svh; }
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 0 24px 56px;
+  }
+  .hero-title { font-size: clamp(44px, 13vw, 64px); line-height: 0.92; }
+  .hero-body { font-size: 13.5px; max-width: 100%; }
+  .hero-series-pills { gap: 8px; }
+  .hero-pill { font-size: 8px; padding: 7px 14px; }
+  .hero-bg-script { font-size: 28vw; }
+  .hero-scroll { display: none; }
+
+  /* ── SERIES NAV ── */
+  .series-nav { top: 64px; }
+  .series-nav-inner {
+    padding: 0 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0;
+  }
+  .series-nav-inner::-webkit-scrollbar { display: none; }
+  .series-nav-tab { padding: 16px 20px; font-size: 8.5px; white-space: nowrap; }
+
+  /* ── SERIES HERO SECTIONS ── */
+  .series-hero { min-height: 55vh; }
+  .series-hero-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 0 24px 48px;
+  }
+  .series-roman { font-size: 48px; }
+  .series-name { font-size: clamp(30px, 10vw, 44px); }
+  .series-pull-quote { font-size: 16px; }
+  .series-meta-row { gap: 24px; }
+  .series-hero-script { font-size: 22vw; right: -20px; }
+
+  /* ── PRODUCT GRIDS ── */
+  .series-products { padding: 0 0 48px; }
+  .series-products-grid.cols-3,
+  .series-products-grid.cols-2,
+  .product-grid { grid-template-columns: 1fr; }
+  .s-card-img { aspect-ratio: 3/2; }
+  .s-card-img-text { font-size: 36px; }
+  .s-card-info { padding: 20px 20px 28px; }
+  .s-card-name { font-size: 20px; }
+
+  /* ── BESPOKE STRIP ── */
+  .bespoke-strip,
+  .bespoke-section { padding: 64px 24px; }
+  .bespoke-inner { grid-template-columns: 1fr; gap: 40px; }
+  .bespoke-title { font-size: clamp(28px, 9vw, 44px); }
+  .bespoke-right-card { padding: 32px 24px; }
+  .bespoke-strip::before { font-size: 180px; right: -20px; bottom: -20px; }
+
+  /* ── OCCASIONS HERO ── */
+  .occ-hero { min-height: 100svh; }
+  .hero-word.w1 { font-size: 18vw; }
+  .hero-word.w2 { font-size: 14vw; margin-left: 20px; }
+  .hero-word.w3 { font-size: 16vw; margin-left: -10px; }
+  .hero-occasion-pills { gap: 8px; }
+  .occ-pill { font-size: 7.5px; padding: 8px 14px; }
+
+  /* ── OCCASION PANELS ── */
+  .occ-panel,
+  .occ-panel.flip {
+    grid-template-columns: 1fr;
+    direction: ltr;
+  }
+  .occ-panel.flip > * { direction: ltr; }
+  .occ-visual { min-height: 300px; }
+  .occ-visual-script { font-size: 64px; }
+  .occ-visual-num { font-size: 56px; bottom: 16px; right: 16px; }
+  .occ-pill-tag { top: 16px; left: 16px; font-size: 7.5px; }
+  .occ-info {
+    padding: 40px 24px 48px;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: 1px solid rgba(200,190,221,0.07);
+  }
+  .occ-name { font-size: clamp(26px, 8vw, 38px); }
+  .occ-story { font-size: 13px; }
+  .occ-pull { font-size: 15px; }
+  .occ-order-row { flex-wrap: wrap; gap: 12px; }
+  .btn-occ-order { text-align: center; width: 100%; }
+
+  /* ── PRODUCT SECTIONS (products.html) ── */
+  .product-section-inner,
+  .product-section-inner.reverse {
+    grid-template-columns: 1fr;
+    direction: ltr;
+  }
+  .product-section-inner.reverse > * { direction: ltr; }
+  .product-panel-img { min-height: 320px; }
+  .product-panel-img::after,
+  .product-section-inner.reverse .product-panel-img::after {
+    background: linear-gradient(to top, rgba(16,12,6,0.6), transparent);
+  }
+  .img-script-bg { font-size: 72px; }
+  .product-panel-info {
+    padding: 40px 24px 52px;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: 1px solid rgba(200,190,221,0.07);
+  }
+  .product-name { font-size: clamp(26px, 8vw, 40px); }
+  .product-story { font-size: 13px; max-width: 100%; }
+  .stems-row { flex-direction: column; gap: 1px; }
+  .stems-item { border-right: none; border-bottom: 1px solid rgba(200,190,221,0.08); padding: 14px 16px; }
+  .stems-item:last-child { border-bottom: none; }
+  .tier-row { grid-template-columns: 1fr; }
+  .tier-cell { padding: 14px 16px; }
+  .colours-row { flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+  .order-row { flex-wrap: wrap; gap: 10px; }
+  .btn-order { text-align: center; width: 100%; }
+  .delivery-note { width: 100%; text-align: center; margin-left: 0; }
+
+  /* ── SERIES DIVIDER ── */
+  .series-divider {
+    padding: 20px 24px;
+    top: 64px;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+  }
+  .series-divider-line { display: none; }
+  .series-divider-num { font-size: 28px; }
+  .series-divider-name { font-size: 16px; }
+
+  /* ── PAGE INTRO ── */
+  .page-hero,
+  .page-intro-inner,
+  .collections-hero .hero-content,
+  .about-hero { grid-template-columns: 1fr; }
+  .page-header { padding: 56px 24px 40px; }
+  .page-header-inner { grid-template-columns: 1fr; gap: 24px; }
+
+  /* ── SHOP PAGE ── */
+  .shop-body { padding: 40px 16px 80px; }
+  .filter-bar { top: 64px; padding: 0 0px; }
+  .filter-inner { flex-direction: column; align-items: flex-start; gap: 0; }
+  .filter-tabs { overflow-x: auto; width: 100%; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .filter-tabs::-webkit-scrollbar { display: none; }
+  .filter-tab { padding: 14px 18px; font-size: 8.5px; white-space: nowrap; }
+  .filter-count { padding: 8px 16px; font-size: 9px; }
+  .product-grid { grid-template-columns: 1fr; gap: 1px; }
+  .product-info { padding: 20px 20px 28px; }
+  .bespoke-banner { padding: 56px 24px; }
+  .bespoke-banner::before { font-size: 120px; }
+
+  /* ── PRODUCT DETAIL PAGE ── */
+  .product-main {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 0 60px;
+  }
+  .product-info { position: static; padding: 32px 24px 0; }
+  .product-description {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 48px 24px;
+  }
+  .care-inner { grid-template-columns: 1fr 1fr; }
+  .related-grid { grid-template-columns: 1fr; }
+  .related-section { padding: 48px 24px 72px; }
+  .product-thumbs { display: none; }
+  .size-options { flex-direction: column; }
+  .product-actions { gap: 10px; }
+
+  /* ── ABOUT PAGE ── */
+  .about-hero { grid-template-columns: 1fr; min-height: auto; }
+  .about-hero-left { padding: 56px 24px 40px; border-right: none; border-bottom: 1px solid rgba(200,190,221,0.07); }
+  .about-hero-right { padding: 40px 24px 56px; }
+  .about-hero-title { font-size: clamp(30px, 9vw, 44px); }
+  .philosophy { grid-template-columns: 1fr; gap: 48px; padding: 56px 24px; }
+  .timeline-inner { padding: 56px 24px; }
+  .timeline-item { grid-template-columns: 80px 1fr; gap: 24px; }
+  .values-section { padding: 56px 24px; }
+  .values-grid { grid-template-columns: 1fr 1fr; }
+  .about-cta { padding: 64px 24px; }
+
+  /* ── CORPORATE CALLOUT ── */
+  .corp-callout { padding: 56px 24px; }
+  .corp-inner { grid-template-columns: 1fr; gap: 40px; }
+  .corp-title { font-size: clamp(24px, 7vw, 38px); }
+
+  /* ── FINAL CTA ── */
+  .final-cta { padding: 72px 24px; }
+  .final-actions { flex-direction: column; align-items: center; gap: 16px; }
+  .btn-final { width: 100%; text-align: center; }
+
+  /* ── BESPOKE SECTION ── */
+  .bespoke-section { padding: 64px 24px; }
+  .bespoke-inner { grid-template-columns: 1fr; gap: 40px; }
+
+  /* ── FOOTER ── */
+  footer { padding: 56px 24px 32px; }
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 24px;
+  }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+
+  /* ── MARQUEE ── */
+  .marquee-item { font-size: 12px; margin: 0 24px; }
+}
+
+/* ── TABLET (769–1024px) ── */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  .header-inner { padding: 0 32px; }
+  nav.left { gap: 24px; }
+  .nav-right { gap: 20px; }
+  nav a, .nav-right a { font-size: 9.5px; }
+
+  .hero-content,
+  .series-hero-content { padding: 0 40px 60px; gap: 48px; }
+
+  .page-header,
+  .page-intro-inner { padding: 60px 40px 48px; }
+
+  .series-products { padding: 0 40px 60px; }
+  .series-products-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+
+  .product-section-inner { gap: 0; }
+  .product-panel-info { padding: 48px 40px; }
+
+  .occ-info { padding: 48px 40px; }
+
+  .shop-body { padding: 48px 40px 80px; }
+  .filter-bar { padding: 0 40px; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .about-hero-left,
+  .about-hero-right { padding: 60px 40px; }
+
+  .philosophy,
+  .values-section,
+  .timeline-inner { padding: 60px 40px; }
+  .values-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .corp-inner,
+  .bespoke-inner,
+  .footer-top { gap: 40px; }
+
+  footer { padding: 60px 40px 32px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+
+  .series-divider { padding: 20px 40px; }
+  .bespoke-strip,
+  .final-cta,
+  .corp-callout { padding: 72px 40px; }
+
+  .product-main { padding: 48px 40px; gap: 48px; }
+  .product-description { padding: 60px 40px; gap: 48px; }
+  .care-inner { padding: 48px 40px; }
+  .related-section { padding: 60px 40px 72px; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="announcement">Handcrafted in Kuala Lumpur &nbsp;·&nbsp; Same-day delivery available &nbsp;·&nbsp; Order by 12pm &nbsp;·&nbsp; WhatsApp to begin</div>
+
+<header>
+  <div class="header-inner">
+    <nav class="left">
+      <a href="shop.html">Shop</a>
+      <a href="collections.html">Collections</a>
+      <a href="occasions.html">Occasions</a>
+    </nav>
+    <a href="index.html" style="display:block;text-align:center;text-decoration:none;">
+      <span class="logo-text">Tableau</span>
+      <span class="logo-sub">Culture et Art Floral</span>
+    </a>
+    <div class="nav-right">
+      <a href="about.html" class="active">About</a>
+      <a href="journal.html">Journal</a>
+      <a href="#" class="nav-order">Order Now</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="about-hero-left reveal">
+    <div class="about-hero-overline">Our Story</div>
+    <h1 class="about-hero-title">
+      Flowers are not<br>decoration.
+      <em>They are feeling,<br>made visible.</em>
+    </h1>
+  </div>
+  <div class="about-hero-right reveal">
+    <div>
+      <p class="about-opening">"We believe every arrangement is a composition — studied, intentional, and emotionally alive."</p>
+      <p class="about-opening-body">Tableau KL is a modern luxury floral atelier based in Kuala Lumpur. Founded with a deep love for artistic beauty and meaningful gifting, Tableau exists for those who understand that what we give says what words cannot. Every stem is chosen. Every arrangement is named. Nothing leaves the atelier without our care.</p>
+    </div>
+    <div class="about-hero-stat">
+      <div class="stat-item">
+        <div class="stat-value">100%</div>
+        <div class="stat-label">Handcrafted</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">KL</div>
+        <div class="stat-label">Based & Made</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">Named</div>
+        <div class="stat-label">Every arrangement</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<div style="border-bottom: 1px solid rgba(200,190,221,0.07);">
+  <div class="philosophy">
+    <div class="philosophy-left reveal">
+      <div class="section-label">Our Philosophy</div>
+      <h2 class="philosophy-title">
+        Art and flowers.<br>
+        <em>The same discipline.</em>
+      </h2>
+      <p class="philosophy-body">We come from the belief that floral design is a visual art — no different in rigour from fashion, interior design, or fine art. The stems are our medium. The dome, our frame. The arrangement, our composition.</p>
+      <p class="philosophy-body">We don't arrange flowers by formula. We compose them by emotion — by the specific feeling a person wants to give, or receive, on a specific day. That is the Tableau way.</p>
+    </div>
+    <div class="reveal">
+      <div class="section-label">What We Believe</div>
+      <div class="philosophy-principles">
+        <div class="principle">
+          <span class="principle-n">I</span>
+          <div class="principle-content">
+            <div class="principle-title">Everything is intentional</div>
+            <p class="principle-body">Every stem, every colour, every proportion is a deliberate choice. There are no fillers. There is no excess. Only what belongs.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <span class="principle-n">II</span>
+          <div class="principle-content">
+            <div class="principle-title">Named, not numbered</div>
+            <p class="principle-body">Our arrangements are not products — they are compositions. Each one is given a name because a name gives it meaning, memory, and permanence.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <span class="principle-n">III</span>
+          <div class="principle-content">
+            <div class="principle-title">Luxury is attention</div>
+            <p class="principle-body">Luxury is not price. Luxury is the time taken to get something exactly right — to not settle for almost beautiful when truly beautiful is possible.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <span class="principle-n">IV</span>
+          <div class="principle-content">
+            <div class="principle-title">Flowers carry feeling</div>
+            <p class="principle-body">We believe in the emotional weight of a well-made arrangement. The right flowers, given at the right moment, say what no words can.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="timeline-inner">
+    <div class="section-label reveal">Our Journey</div>
+    <h2 class="timeline-title reveal">Built slowly.<br><em>With great care.</em></h2>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-year">The Beginning</div>
+        <div class="timeline-content">
+          <div class="timeline-event">Tableau is Founded</div>
+          <p class="timeline-body">What began as a deep obsession with beautiful flowers became an atelier. The Tableau Classic Dome — our first and most loved arrangement — was the piece that started everything. A dome of garden roses, made with the belief that simplicity, when done perfectly, is the highest luxury.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year">The Series</div>
+        <div class="timeline-content">
+          <div class="timeline-event">The Collections Take Shape</div>
+          <p class="timeline-body">The Signature, Ice Cream, and Garden series were born from three distinct feelings — structure, softness, and abundance. Each series became its own world, attracting a different kind of person, a different kind of occasion.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year">The Growth</div>
+        <div class="timeline-content">
+          <div class="timeline-event">Gifting at Scale</div>
+          <p class="timeline-body">Corporate gifting and volume orders became part of the atelier's identity. We proved that luxury can exist at scale — that 100 arrangements made with the same care as one is not only possible, but necessary.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year">Now</div>
+        <div class="timeline-content">
+          <div class="timeline-event">Tableau Today</div>
+          <p class="timeline-body">We are Kuala Lumpur's luxury floral atelier — a creative house rather than a flower shop. Every arrangement that leaves us is a piece of work we're proud of. That has not changed, and will not.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-section">
+  <div class="values-header reveal">
+    <div class="section-label">What Defines Us</div>
+    <h2 class="values-title">The values we<br><em>don't compromise on.</em></h2>
+  </div>
+  <div class="values-grid">
+    <div class="value-card reveal">
+      <span class="value-icon">Art</span>
+      <div class="value-name">Artistic Integrity</div>
+      <p class="value-desc">Every arrangement is a creative act. We approach floral design the way a fashion house approaches a collection — with vision, rigour, and no shortcuts.</p>
+    </div>
+    <div class="value-card reveal">
+      <span class="value-icon">Soin</span>
+      <div class="value-name">Obsessive Care</div>
+      <p class="value-desc">Care is the foundation of Tableau. From the sourcing of blooms to the final ribbon — every detail is attended to with the same seriousness as the first.</p>
+    </div>
+    <div class="value-card reveal">
+      <span class="value-icon">Vrai</span>
+      <div class="value-name">Emotional Truth</div>
+      <p class="value-desc">We believe flowers are given and received in moments of great feeling. We take that seriously. Our arrangements are never decorative. They are always meaningful.</p>
+    </div>
+    <div class="value-card reveal">
+      <span class="value-icon">KL</span>
+      <div class="value-name">Made in KL</div>
+      <p class="value-desc">Tableau is a Kuala Lumpur brand, proud of its roots. We are building a local luxury identity that holds its own alongside the finest ateliers in the world.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="about-cta reveal">
+  <span class="cta-eyebrow">Begin Here</span>
+  <h2 class="cta-title">See what we've<br><em>been working on.</em></h2>
+  <p class="cta-body">The collections. The arrangements. The feeling. Everything that Tableau stands for — expressed through flowers.</p>
+  <a href="shop.html" class="btn-primary">Explore the Atelier</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <span class="footer-brand-name">Tableau</span>
+        <p class="footer-tagline">"Where flowers become art — and art becomes feeling."</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Collections</p>
+        <ul class="footer-links">
+          <li><a href="shop.html">New Arrivals</a></li>
+          <li><a href="collections.html">Signature Series</a></li>
+          <li><a href="collections.html">Ice Cream Series</a></li>
+          <li><a href="collections.html">Garden Series</a></li>
+          <li><a href="shop.html">Atelier Bespoke</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Information</p>
+        <ul class="footer-links">
+          <li><a href="about.html">About Tableau</a></li>
+          <li><a href="delivery.html">Delivery</a></li>
+          <li><a href="care.html">Care Guide</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="journal.html">Journal</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Contact</p>
+        <ul class="footer-links">
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Email</a></li>
+          <li><a href="#" style="color:rgba(245,239,232,0.25);">Kuala Lumpur, Malaysia</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Tableau Floral Atelier. All rights reserved.</p>
+      <div class="footer-social"><a href="#">Instagram</a><a href="#">WhatsApp</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.06 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
